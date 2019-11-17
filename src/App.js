@@ -1,17 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Carta from './Carta';
 import Header from './Header';
 import Tiempo from './Tiempo';
+import Equipo from './Equipo';
 
 import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CheckIcon from '@material-ui/icons/Check';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { createMuiTheme } from '@material-ui/core/styles';
 import {purple} from '@material-ui/core/colors/purple';
 
 const useStyles = makeStyles(theme => ({
@@ -246,11 +245,29 @@ function App() {
   const classes = useStyles();
   const [indexCarta, setIndexCarta] = React.useState(0);
   const [equipo, setEquipo] = React.useState(0);
-  const [puntos, setPuntos] = React.useState(0);
+  const [puntos, setPuntos] = React.useState([]);
   const [running, setRunning] = React.useState(true);
 
-  return (
+  // function cambiarPuntos(equipoActual, puntosNuevos){
+  //   var puntosActuales = puntos;
+  //   puntosActuales[equipoActual] = puntos[equipoActual] + puntosNuevos;
+  //   setPuntos(puntosActuales);
+  // };
+  //
+  function agregarEquipos(equipos){
+    var arrayPuntos = puntos;
+    equipos.forEach((equipo, index)=> {
+      arrayPuntos[index] = {
+        nombre: equipo,
+        puntos: 0
+      };
+    });
+    setPuntos(arrayPuntos);
+  };
+
+ return (
     <div className="App">
+      {!puntos.length ? <Equipo agregarEquipos={(equipos) => agregarEquipos(equipos)}/> : ''}
       <Header puntos={puntos}/>
       <Tiempo minutes={0} seconds={10} running={running} tiempo={()=>{
         console.log('TIEMPO');
