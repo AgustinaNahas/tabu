@@ -77,20 +77,13 @@ const styles = theme => ({
         super(props);
 
         this.state = {
-            minutes: 1,
-            seconds: 0,
+            minutes: props.minutes,
+            seconds: props.seconds,
             millis: 0,
             running: false,
             tiempo: new Date()
         };
 
-
-        this._handleEmpezar = this._handleEmpezar.bind(this);
-        this._handleGuardar = this._handleGuardar.bind(this);
-    }
-
-
-    _handleEmpezar(event) {
         if (!this.state.running) {
             this.interval = setInterval(() => {
                 this.tick();
@@ -98,6 +91,7 @@ const styles = theme => ({
 
             this.setState({running: true})
         }
+
     }
 
     _handleGuardar(event) {
@@ -106,8 +100,6 @@ const styles = theme => ({
             this.setState({running: false});
             this.update(0, 0, 1);
         }
-
-        
     }
     
     tick() {
@@ -124,6 +116,10 @@ const styles = theme => ({
             millis = 9;
             seconds = 59;
             minutes = minutes - 1;
+        }
+
+        if (!millis && !seconds && !minutes){
+
         }
 
         this.update(millis, seconds, minutes);

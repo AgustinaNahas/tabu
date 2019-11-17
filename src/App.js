@@ -57,6 +57,68 @@ const palabras = [
     ]
   },
   {
+    palabra: 'Angel',
+    tabues: [
+      'Paraíso',
+      'Cielo',
+      'Diablo',
+      'Demonio',
+      'Alas'
+    ]
+  },
+  {
+    palabra: 'Corpiño',
+    tabues: [
+      'Mujer',
+      'Pechos',
+      'Sostén',
+      'Ropa',
+      'Bombacha'
+    ]
+  },
+  {
+    palabra: 'Cine',
+    tabues: [
+      'Película',
+      'Pantalla',
+      'Filmar',
+      'Proyectar',
+      'Cámara'
+    ]
+  },
+  {
+    palabra: 'Nido',
+    tabues: [
+      'Pájaro',
+      'Pichones',
+      'Huevos',
+      'Casa',
+      'Árbol'
+    ]
+  },
+  {
+    palabra: 'Bandoneón',
+    tabues: [
+      'Acordeón',
+      'Música',
+      'Instrumento',
+      'Tango',
+      'Piazzola'
+    ]
+  },
+  {
+    palabra: 'Corpiño',
+    tabues: [
+      'Mujer',
+      'Pechos',
+      'Sostén',
+      'Ropa',
+      'Bombacha'
+    ]
+  },
+
+
+  {
     palabra: 'Futbol',
     tabues: [
       'Pelota',
