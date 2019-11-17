@@ -3,12 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 import Carta from './Carta';
 import Header from './Header';
+import Tiempo from './Tiempo';
 
 import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CheckIcon from '@material-ui/icons/Check';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+import { createMuiTheme } from '@material-ui/core/styles';
+import {purple} from '@material-ui/core/colors/purple';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+    backgroundColor: purple
   },
   fabRight: {
     position: 'absolute',
@@ -107,9 +112,73 @@ const palabras = [
       'Comida',
       'Boca',
       'Hambre',
-      'Heladera'
+      'Heladera',
+      'Masticar'
     ]
-  }
+  },
+  {
+    palabra: 'Mosquito',
+    tabues: [
+      'Picar',
+      'Rascar',
+      'Insecto',
+      'Raid',
+      'Espiral'
+    ]
+  },
+  {
+    palabra: 'Carga',
+    tabues: [
+      'Bultos',
+      'Pesado',
+      'Camión',
+      'Barco',
+      'Tren'
+    ]
+  },
+  {
+    palabra: 'Cuna',
+    tabues: [
+      'Bebé',
+      'Dormir',
+      'Canción',
+      'Barras',
+      'Muebles'
+    ]
+  },
+  {
+    palabra: 'Roncar',
+    tabues: [
+      'Noche',
+      'Ruido',
+      'Nariz',
+      'Dormir',
+      'Molestar'
+    ]
+  },
+  {
+    palabra: 'Micro escolar',
+    tabues: [
+      'Colegio',
+      'Chicos',
+      'Vehículo',
+      'Niño',
+      'Naranja'
+    ]
+  },
+  {
+    palabra: 'Tenis',
+    tabues: [
+      'Deporte',
+      'Raqueta',
+      'Cancha',
+      'Red',
+      'Pelota'
+    ]
+  },
+
+
+
 
 ];
 
@@ -122,6 +191,7 @@ function App() {
   return (
     <div className="App">
       <Header puntos={puntos}/>
+      <Tiempo />
       <Carta carta={palabras[indexCarta]}/>
       <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
         setIndexCarta(Math.floor(Math.random() * palabras.length));
