@@ -116,8 +116,6 @@ const palabras = [
       'Bombacha'
     ]
   },
-
-
   {
     palabra: 'Futbol',
     tabues: [
@@ -249,19 +247,25 @@ function App() {
   const [indexCarta, setIndexCarta] = React.useState(0);
   const [equipo, setEquipo] = React.useState(0);
   const [puntos, setPuntos] = React.useState(0);
+  const [running, setRunning] = React.useState(true);
 
   return (
     <div className="App">
       <Header puntos={puntos}/>
-      <Tiempo />
+      <Tiempo minutes={0} seconds={10} running={running} tiempo={()=>{
+        console.log('TIEMPO');
+        setRunning(false);
+      }}/>
       <Carta carta={palabras[indexCarta]}/>
       <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
-        setIndexCarta(Math.floor(Math.random() * palabras.length));
-        setPuntos(puntos + 1);
+        if (running){
+          setIndexCarta(Math.floor(Math.random() * palabras.length));
+          setPuntos(puntos + 1);
+        }
       }}>
         <CheckIcon />
       </Fab>
-      <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { setIndexCarta(Math.floor(Math.random() * palabras.length)) }}>
+      <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) setIndexCarta(Math.floor(Math.random() * palabras.length)) }}>
         <ArrowForwardIcon />
       </Fab>
     </div>

@@ -80,11 +80,11 @@ const styles = theme => ({
             minutes: props.minutes,
             seconds: props.seconds,
             millis: 0,
-            running: false,
+            running: props.running,
             tiempo: new Date()
         };
 
-        if (!this.state.running) {
+        if (this.state.running) {
             this.interval = setInterval(() => {
                 this.tick();
             }, 100);
@@ -94,14 +94,6 @@ const styles = theme => ({
 
     }
 
-    _handleGuardar(event) {
-        if (this.state.running){
-            clearInterval(this.interval);
-            this.setState({running: false});
-            this.update(0, 0, 1);
-        }
-    }
-    
     tick() {
         let millis = this.state.millis - 1;
         let seconds = this.state.seconds;
@@ -118,11 +110,13 @@ const styles = theme => ({
             minutes = minutes - 1;
         }
 
-        if (!millis && !seconds && !minutes){
-
+        if (minutes<0){
+            this.props.tiempo();
+            clearInterval(this.interval);
+            this.setState({running: false});
+        } else {
+            this.update(millis, seconds, minutes);
         }
-
-        this.update(millis, seconds, minutes);
     }
 
     zeroPad(value) {
@@ -152,15 +146,6 @@ const styles = theme => ({
                         <span className="secs">{this.zeroPad(this.state.seconds)}</span> 
                         <span className="millis">.0{this.state.millis}</span>
                     </Typography>
-                </Grid>
-                <Grid item xs={12}  className={classes.alignCenter}>
-                    <Fab className={classes.callIcon} aria-label="add" onClick={this._handleEmpezar}>
-                        <CallIcon />
-                    </Fab>
-
-                    <Fab className={classes.callEndIcon} aria-label="add" onClick={this._handleGuardar}>
-                        <CallEndIcon />
-                    </Fab>
                 </Grid>
             </Grid>
                 
