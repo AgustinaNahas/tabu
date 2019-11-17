@@ -48,11 +48,11 @@ const palabras = [
   {
     palabra: 'Sueño',
     tabues: [
-        'Dormir',
-        'Cama',
-        'Noche',
-        'Soñar',
-        'Roncar'
+      'Dormir',
+      'Cama',
+      'Noche',
+      'Soñar',
+      'Roncar'
     ]
   },
   {
@@ -235,10 +235,6 @@ const palabras = [
       'Pelota'
     ]
   },
-
-
-
-
 ];
 
 function App() {
@@ -246,46 +242,50 @@ function App() {
   const [indexCarta, setIndexCarta] = React.useState(0);
   const [equipo, setEquipo] = React.useState(0);
   const [puntos, setPuntos] = React.useState([]);
-  const [running, setRunning] = React.useState(true);
+  const [running, setRunning] = React.useState(false);
 
   // function cambiarPuntos(equipoActual, puntosNuevos){
   //   var puntosActuales = puntos;
   //   puntosActuales[equipoActual] = puntos[equipoActual] + puntosNuevos;
   //   setPuntos(puntosActuales);
   // };
-  //
+
   function agregarEquipos(equipos){
     var arrayPuntos = puntos;
+
     equipos.forEach((equipo, index)=> {
       arrayPuntos[index] = {
         nombre: equipo,
         puntos: 0
       };
     });
+
     setPuntos(arrayPuntos);
+
+    console.log(puntos);
   };
 
- return (
-    <div className="App">
-      {!puntos.length ? <Equipo agregarEquipos={(equipos) => agregarEquipos(equipos)}/> : ''}
-      <Header puntos={puntos}/>
-      <Tiempo minutes={0} seconds={10} running={running} tiempo={()=>{
-        console.log('TIEMPO');
-        setRunning(false);
-      }}/>
-      <Carta carta={palabras[indexCarta]}/>
-      <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
-        if (running){
-          setIndexCarta(Math.floor(Math.random() * palabras.length));
-          setPuntos(puntos + 1);
-        }
-      }}>
-        <CheckIcon />
-      </Fab>
-      <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) setIndexCarta(Math.floor(Math.random() * palabras.length)) }}>
-        <ArrowForwardIcon />
-      </Fab>
-    </div>
+  return (
+      <div className="App">
+        {!puntos.length ? <Equipo agregarEquipos={(equipos) => agregarEquipos(equipos)}/> : ''}
+        <Header puntos={puntos}/>
+        <Tiempo minutes={0} seconds={10} running={running} tiempo={()=>{
+          console.log('TIEMPO');
+          setRunning(false);
+        }}/>
+        <Carta carta={palabras[indexCarta]}/>
+        <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
+          if (running){
+            setIndexCarta(Math.floor(Math.random() * palabras.length));
+            setPuntos(puntos + 1);
+          }
+        }}>
+          <CheckIcon />
+        </Fab>
+        <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) setIndexCarta(Math.floor(Math.random() * palabras.length)) }}>
+          <ArrowForwardIcon />
+        </Fab>
+      </div>
   );
 }
 
