@@ -9,11 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 
-import {
-    DateTimePicker,
-    MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -136,7 +131,6 @@ class View extends React.Component {
     render() {
         const {classes} = this.props;
 
-        let run = this.props.running === true;
         return (
             <Card className={classes.card}>
                 <CardContent>

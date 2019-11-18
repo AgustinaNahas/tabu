@@ -15,10 +15,6 @@ const styles = theme => ({
 });
 
 class ButtonAppBar extends React.Component {
-    constructor(props){
-        super(props);
-    }
-
     render(){
         const {classes} = this.props;
 
