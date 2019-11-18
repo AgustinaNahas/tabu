@@ -9,11 +9,12 @@ import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CheckIcon from '@material-ui/icons/Check';
 
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 
 import {purple} from '@material-ui/core/colors/purple';
+import PropTypes from "prop-types";
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
@@ -42,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   },
 
 
-}));
+});
 
 const palabras = [
   {
@@ -237,21 +238,21 @@ const palabras = [
   },
 ];
 
-function App() {
-  const classes = useStyles();
-  const [indexCarta, setIndexCarta] = React.useState(0);
-  const [equipo, setEquipo] = React.useState(0);
-  const [puntos, setPuntos] = React.useState([]);
-  const [running, setRunning] = React.useState(false);
+class App extends React.Component {
 
-  // function cambiarPuntos(equipoActual, puntosNuevos){
-  //   var puntosActuales = puntos;
-  //   puntosActuales[equipoActual] = puntos[equipoActual] + puntosNuevos;
-  //   setPuntos(puntosActuales);
-  // };
+  constructor(props){
+    super(props);
 
-  function agregarEquipos(equipos){
-    var arrayPuntos = puntos;
+    this.state = {
+      equipo: 0,
+      puntos: [],
+      running: false,
+      carta: 0
+    }
+  }
+
+  agregarEquipos(equipos){
+    var arrayPuntos = this.state.puntos;
 
     equipos.forEach((equipo, index)=> {
       arrayPuntos[index] = {
@@ -260,33 +261,46 @@ function App() {
       };
     });
 
-    setPuntos(arrayPuntos);
-
-    console.log(puntos);
+    this.setState({puntos: arrayPuntos, running: true});
   };
 
-  return (
-      <div className="App">
-        {!puntos.length ? <Equipo agregarEquipos={(equipos) => agregarEquipos(equipos)}/> : ''}
-        <Header puntos={puntos}/>
-        <Tiempo minutes={0} seconds={10} running={running} tiempo={()=>{
-          console.log('TIEMPO');
-          setRunning(false);
-        }}/>
-        <Carta carta={palabras[indexCarta]}/>
-        <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
-          if (running){
-            setIndexCarta(Math.floor(Math.random() * palabras.length));
-            setPuntos(puntos + 1);
-          }
-        }}>
-          <CheckIcon />
-        </Fab>
-        <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) setIndexCarta(Math.floor(Math.random() * palabras.length)) }}>
-          <ArrowForwardIcon />
-        </Fab>
-      </div>
-  );
+  render(){
+    const {classes} = this.props;
+    const {running, puntos, carta, equipo } = this.state;
+
+    // function cambiarPuntos(equipoActual, puntosNuevos){
+    //   var puntosActuales = puntos;
+    //   puntosActuales[equipoActual] = puntos[equipoActual] + puntosNuevos;
+    //   setPuntos(puntosActuales);
+    // };
+    return (
+        <div className="App">
+          {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
+          <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''}/>
+          <Tiempo minutes={0} seconds={10} running={running} tiempo={()=>{
+            // console.log('TIEMPO');
+            this.setState({running: false});
+          }}/>
+          <Carta carta={palabras[carta]}/>
+          <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
+            if (running){
+              this.setState({ carta: Math.floor(Math.random() * palabras.length), puntos: this.state.puntos + 1});
+            }
+          }}>
+            <CheckIcon />
+          </Fab>
+          <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)}) }}>
+            <ArrowForwardIcon />
+          </Fab>
+        </div>
+    );
+
+  }
 }
 
-export default App;
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);

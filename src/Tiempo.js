@@ -18,15 +18,15 @@ import { withStyles } from '@material-ui/styles';
 import {
     DateTimePicker,
     MuiPickersUtilsProvider,
-  } from "@material-ui/pickers";
+} from "@material-ui/pickers";
 
 const styles = theme => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     paper: {
-      height: 140,
-      width: 100,
+        height: 140,
+        width: 100,
     },
     callIcon: {
         backgroundColor: '#ff3b3f',
@@ -69,9 +69,9 @@ const styles = theme => ({
     alignCenter: {
         textAlign: "center"
     }
-  });
+});
 
- class View extends React.Component {
+class View extends React.Component {
 
     constructor(props) {
         super(props);
@@ -80,17 +80,8 @@ const styles = theme => ({
             minutes: props.minutes,
             seconds: props.seconds,
             millis: 0,
-            running: props.running,
             tiempo: new Date()
         };
-
-        if (this.state.running) {
-            this.interval = setInterval(() => {
-                this.tick();
-            }, 100);
-
-            this.setState({running: true})
-        }
 
     }
 
@@ -113,7 +104,6 @@ const styles = theme => ({
         if (minutes<0){
             this.props.tiempo();
             clearInterval(this.interval);
-            this.setState({running: false});
         } else {
             this.update(millis, seconds, minutes);
         }
@@ -131,25 +121,34 @@ const styles = theme => ({
         });
     }
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        if (this.props.running !== nextProps.running){
+            this.interval = setInterval(() => {
+                this.tick();
+            }, 100);
+        }
+        return true;
+    }
+
     render() {
         const {classes} = this.props;
 
-        let run = this.state.running === true;
+        let run = this.props.running === true;
         return (
             <Card className={classes.card}>
-            <CardContent>
+                <CardContent>
 
-            <Grid container spacing={3}>
-                <Grid item xs={12} justify="center" className={classes.alignCenter}>
-                    <Typography variant="h5" component="h2">
-                        <span className="mins">{this.zeroPad(this.state.minutes)}:</span> 
-                        <span className="secs">{this.zeroPad(this.state.seconds)}</span> 
-                        <span className="millis">.0{this.state.millis}</span>
-                    </Typography>
-                </Grid>
-            </Grid>
-                
-            </CardContent>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} justify="center" className={classes.alignCenter}>
+                            <Typography variant="h5" component="h2">
+                                <span className="mins">{this.zeroPad(this.state.minutes)}:</span>
+                                <span className="secs">{this.zeroPad(this.state.seconds)}</span>
+                                <span className="millis">.0{this.state.millis}</span>
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                </CardContent>
             </Card>);
     }
 }
@@ -157,5 +156,5 @@ const styles = theme => ({
 View.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-  
-  export default withStyles(styles)(View);
+
+export default withStyles(styles)(View);

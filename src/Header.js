@@ -3,34 +3,58 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import PropTypes from "prop-types";
+import {withStyles} from "@material-ui/styles";
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
     root: {
         flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1,
     },
-}));
+});
 
-export default function ButtonAppBar(props) {
-    const classes = useStyles();
+class ButtonAppBar extends React.Component {
+    constructor(props){
+        super(props);
+        console.log(props);
+    }
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="static" color="none">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        Equipo A
-                    </Typography>
-                    <Typography variant="h6" className={classes.title}>
-                        {props.puntos}
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+    componentDidMount() {
+        console.log(this.props);
+    }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+        // console.log(this.props);
+        // console.log(nextProps);
+        // console.log(nextState);
+    // }
+
+    render(){
+        const {classes} = this.props;
+
+        return (
+            <div className={classes.root}>
+                <AppBar position="static" color="none">
+                    <Toolbar>
+                        <Typography variant="h6" className={classes.title}>
+                            Equipo {this.props.nombre}
+                        </Typography>
+                        <Typography variant="h6" className={classes.title}>
+                            {this.props.puntos}
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </div>
+        );
+    }
+
 }
+
+
+ButtonAppBar.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ButtonAppBar);
