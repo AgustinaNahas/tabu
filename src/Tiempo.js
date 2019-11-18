@@ -28,6 +28,10 @@ const styles = theme => ({
         height: 140,
         width: 100,
     },
+    card: {
+        minWidth: 275,
+        margin: 20
+    },
     callIcon: {
         backgroundColor: '#ff3b3f',
         color: 'white',
@@ -51,9 +55,6 @@ const styles = theme => ({
         '&:hover': {
             backgroundColor: '#A7C0C8'
         }
-    },
-    card: {
-        minWidth: 275,
     },
     bullet: {
         display: 'inline-block',
@@ -79,8 +80,7 @@ class View extends React.Component {
         this.state = {
             minutes: props.minutes,
             seconds: props.seconds,
-            millis: 0,
-            tiempo: new Date()
+            millis: 0
         };
 
     }
@@ -101,8 +101,8 @@ class View extends React.Component {
             minutes = minutes - 1;
         }
 
-        if (minutes<0){
-            this.props.tiempo();
+        if (minutes<0 ){
+            if (this.props.running) this.props.tiempo();
             clearInterval(this.interval);
         } else {
             this.update(millis, seconds, minutes);

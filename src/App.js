@@ -14,6 +14,8 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import {purple} from '@material-ui/core/colors/purple';
 import PropTypes from "prop-types";
 
+import Button from '@material-ui/core/Button';
+
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -41,6 +43,10 @@ const styles = theme => ({
     bottom: theme.spacing(2),
     left: theme.spacing(2),
   },
+  button: {
+    margin: theme.spacing(1),
+  },
+
 
 
 });
@@ -261,30 +267,46 @@ class App extends React.Component {
       };
     });
 
-    this.setState({puntos: arrayPuntos, running: true});
+    this.setState({puntos: arrayPuntos});
   };
+
+  cambiarPuntos(equipoActual, puntosNuevos){
+    var puntosActuales = this.state.puntos;
+    puntosActuales[equipoActual].puntos = puntosNuevos;
+    this.setState({puntos: puntosActuales});
+  };
+
+  timeSUp(){
+    this.setState({running: false});
+    var equipoSiguiente = this.state.equipo + 1;
+    if (equipoSiguiente == this.state.puntos.length)
+      equipoSiguiente = 0;
+    this.setState({equipo: equipoSiguiente});
+  }
 
   render(){
     const {classes} = this.props;
     const {running, puntos, carta, equipo } = this.state;
 
-    // function cambiarPuntos(equipoActual, puntosNuevos){
-    //   var puntosActuales = puntos;
-    //   puntosActuales[equipoActual] = puntos[equipoActual] + puntosNuevos;
-    //   setPuntos(puntosActuales);
-    // };
     return (
         <div className="App">
           {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
           <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''}/>
-          <Tiempo minutes={0} seconds={10} running={running} tiempo={()=>{
-            // console.log('TIEMPO');
-            this.setState({running: false});
-          }}/>
-          <Carta carta={palabras[carta]}/>
+          <Tiempo minutes={0} seconds={10} running={running} tiempo={()=> this.timeSUp() }/>
+          {running ?
+              <Carta carta={palabras[carta]}/>
+              :
+              <Button variant="contained" color="secondary" className={classes.button} onClick={() => this.setState({running: true})}>
+                Empezar
+              </Button>
+          }
           <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
             if (running){
-              this.setState({ carta: Math.floor(Math.random() * palabras.length), puntos: this.state.puntos + 1});
+              this.setState({ carta: Math.floor(Math.random() * palabras.length)});
+
+              console.log(equipo, puntos[equipo]);
+
+              this.cambiarPuntos(equipo, puntos[equipo].puntos + 1);
             }
           }}>
             <CheckIcon />

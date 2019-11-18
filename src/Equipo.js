@@ -90,14 +90,13 @@ class CustomizedDialogs extends React.Component {
         this.setState({nombres: nombresNuevos});
     };
 
-
     render(){
         const { classes, agregarEquipos } = this.props;
 
         return (
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
                 <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-                    Ingrese sus datos
+                    Ingrese los equipos
                 </DialogTitle>
                 <DialogContent dividers>
                     {
