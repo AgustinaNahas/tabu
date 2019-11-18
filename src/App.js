@@ -296,16 +296,16 @@ class App extends React.Component {
           {running ?
               <Carta carta={palabras[carta]}/>
               :
-              <Button variant="contained" color="secondary" className={classes.button} onClick={() => this.setState({running: true})}>
+              <Button variant="contained" color="secondary" className={classes.button} onClick={() => {
+                this.setState({running: true});
+                console.log(this.state);
+              }}>
                 Empezar
               </Button>
           }
           <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
             if (running){
               this.setState({ carta: Math.floor(Math.random() * palabras.length)});
-
-              console.log(equipo, puntos[equipo]);
-
               this.cambiarPuntos(equipo, puntos[equipo].puntos + 1);
             }
           }}>
