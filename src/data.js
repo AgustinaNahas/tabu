@@ -385,13 +385,13 @@ export const palabras = [
                 'Blancas',
                 'Negras', ]
     },{
-        palabra: 'Rock & pop',
+        palabra: 'Flash',
         tabues:[
-            'Radio',
-            '106.3',
-            'Aspen',
-            'Horizonte',
-            'FM',
+            'Barry Allen',
+            'Rápido',
+            'Correr',
+            'Star',
+            'DC',
         ]
     },{
         palabra: 'Pasto',
@@ -447,12 +447,12 @@ export const palabras = [
             ['Beso',
                 'Cara',
                 'Bofetada',
-                'Cachete',]}
+                'Cachete',
+                'Moflete']}
     ,{
-        palabra: 'Moflete',
+        palabra: 'Boleto',
         tabues:
-            ['BOLETO',
-                'Tren',
+            ['Tren',
                 'Colectivo',
                 'Pasaje',
                 'Sacar',
@@ -468,24 +468,22 @@ export const palabras = [
                 'Ladrillos',
             ]
     },{
-        palabra:   'pulpo',
+        palabra:   'Pulpo',
         tabues:
             ['Tentáculos',
                 'Tinta',
                 'Ocho',
                 'Pescadera',
                 'Océano',
-
             ]
     },{
-        palabra:   'epidemia',
+        palabra:   'Epidemia',
         tabues:
             ['Contagiarse',
                 'Vacuna',
                 'País',
                 'Enfermedad',
                 'Muertos',
-
             ]
     },{
         palabra: 'Otoño',
@@ -495,7 +493,6 @@ export const palabras = [
                 'Verano',
                 'Hojas',
                 'Invierno',
-
             ]
     },{
         palabra: 'Activista',
@@ -505,7 +502,6 @@ export const palabras = [
                 'Derecho',
                 'Estudiante',
                 'Protesta',
-
             ]
     },{
         palabra: 'Soga',
@@ -535,7 +531,7 @@ export const palabras = [
                 'Manga',
             ]
     },{
-        palabra:   'mono',
+        palabra:   'Mono',
         tabues:
             ['Chimpancé',
                 'Chita',
@@ -562,7 +558,7 @@ export const palabras = [
                 'Agencia',
             ]
     },{
-        palabra:   'deseo',
+        palabra:   'Deseo',
         tabues:
             ['Querer',
                 'Capricho',
@@ -571,7 +567,7 @@ export const palabras = [
                 'Pedir',
             ]
     },{
-        palabra:   'asfalto',
+        palabra: 'Asfalto',
         tabues:
             [  'Negro',
                 'Pavimento',
@@ -607,7 +603,7 @@ export const palabras = [
                 'Llamarse',
             ]
     },{
-        palabra:   'azucar',
+        palabra: 'Azucar',
         tabues:
             ['Blanco',
                 'Endulzar',
@@ -625,7 +621,7 @@ export const palabras = [
                 'Matrimonio',
             ]
     },{
-        palabra:  'viejo',
+        palabra: 'Viejo',
         tabues:
             ['Nuevo',
                 'Abuelo',
@@ -671,7 +667,7 @@ export const palabras = [
                 'Tres',
             ]
     },{
-        palabra:   'espejo',
+        palabra: 'Espejo',
         tabues:
             ['Vidrio',
                 'Retrovisor',
