@@ -1,11 +1,5 @@
 import React from 'react';
 
-import Fab from '@material-ui/core/Fab';
-import CallIcon from '@material-ui/icons/Call';
-import CallEndIcon from '@material-ui/icons/CallEnd';
-import PlusOneIcon from '@material-ui/icons/PlusOne';
-import TextField from '@material-ui/core/TextField';
-
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -123,8 +117,6 @@ class View extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         if (this.props.running !== nextProps.running){
-
-            console.log(nextProps);
 
             if (nextProps.running){
                 this.setState({

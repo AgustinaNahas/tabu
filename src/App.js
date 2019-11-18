@@ -9,7 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CheckIcon from '@material-ui/icons/Check';
 
-import {makeStyles, withStyles} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 import {purple} from '@material-ui/core/colors/purple';
 import PropTypes from "prop-types";
@@ -45,14 +45,83 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing(1),
-  },
-
-
-
+  }
 });
 
 const palabras = [
   {
+    palabra: 'Esposas',
+    tabues: [
+      'Arresto',
+      'Policía',
+      'Mano',
+      'Preso',
+      'Muñeca',
+      ]
+  },{
+  palabra: 'Risa',
+  tabues: [
+      'Ridículo',
+    'Cómico',
+    'Carcajada',
+    'Chiste',
+    'Broma',
+    ]
+  },{
+  palabra: 'Cenizas',
+  tabues: [
+      'Fuego',
+    'Fumar',
+    'Polvo',
+    'Quemar',
+    'Cigarrillo',
+    ]
+  },{
+  palabra: 'Botiquin',
+  tabues: [
+      'Baño',
+    'Espejo',
+    'Remedios',
+    'Guardar',
+    'Armario',
+    ]
+  },{
+  palabra: 'Antifaz',
+  tabues: [
+      'Ojos',
+    'Tapar',
+    'Mascara',
+    'Carnaval',
+    'Cara',
+    ]
+  },{
+  palabra: 'Pasaporte',
+  tabues: [
+      'Documento',
+    'Extranjero',
+    'Viajar',
+    'Aduana',
+    'Visa',
+    ]
+  }, {
+    palabra: 'Radiador',
+    tabues: [
+      'Anticongelante',
+      'Enfriar',
+      'Coche',
+      'Agua',
+      'Motor',
+    ]
+  }, {
+    palabra: 'Pinocho',
+    tabues: [
+      'Mentira',
+      'Nariz',
+      'Gepetto',
+      'Muñeco',
+      'Cuento'
+    ]
+  }, {
     palabra: 'Sueño',
     tabues: [
       'Dormir',

@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -18,18 +17,7 @@ const styles = theme => ({
 class ButtonAppBar extends React.Component {
     constructor(props){
         super(props);
-        console.log(props);
     }
-
-    componentDidMount() {
-        console.log(this.props);
-    }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-        // console.log(this.props);
-        // console.log(nextProps);
-        // console.log(nextState);
-    // }
 
     render(){
         const {classes} = this.props;
