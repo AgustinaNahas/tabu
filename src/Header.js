@@ -25,7 +25,7 @@ class ButtonAppBar extends React.Component {
     }
 
     render(){
-        const {classes} = this.props;
+        const {classes, guardarConfig} = this.props;
         const {opciones} = this.state;
 
         return (
@@ -43,7 +43,7 @@ class ButtonAppBar extends React.Component {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                {opciones ? <Opciones/> : ''}
+                {opciones ? <Opciones guardarConfig={guardarConfig}/> : ''}
             </div>
         );
     }

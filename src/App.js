@@ -66,7 +66,13 @@ class App extends React.Component {
       equipo: 0,
       puntos: [],
       running: false,
-      carta: 0
+      carta: 0,
+      config: {
+        tiempo: {
+          minutes: 0,
+          seconds: 30
+        }
+      }
     }
   }
 
@@ -99,14 +105,15 @@ class App extends React.Component {
 
   render(){
     const {classes} = this.props;
-    const {running, puntos, carta, equipo } = this.state;
+    const {running, puntos, carta, equipo , config} = this.state;
 
     return (
         <ThemeProvider theme={theme}>
           <div className="App">
             {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
-            <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''}/>
-            <Tiempo minutes={0} seconds={10} running={running} tiempo={()=> this.timeSUp() }/>
+            <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} guardarConfig={(tiempo) => {
+              this.setState({config: {tiempo: tiempo}})}} puntos={puntos[equipo] ? puntos[equipo].puntos : ''}/>
+            <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} tiempo={()=> this.timeSUp() }/>
             {running ?
                 <Carta carta={palabras[carta]}/>
                 :
@@ -132,7 +139,12 @@ class App extends React.Component {
                     })
                 }
             >
-              <Fab className={[classes.fab, classes.fabTabu]} color="primary" onClick={() => { if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)}) }}>
+              <Fab className={[classes.fab, classes.fabTabu]} color="primary" onClick={() => {
+                if (running){
+                  this.setState({ carta: Math.floor(Math.random() * palabras.length)});
+                  this.cambiarPuntos(equipo, puntos[equipo].puntos - 1);
+                }
+              }}>
                 <PanToolIcon />
               </Fab>
 

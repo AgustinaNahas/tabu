@@ -11,11 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
 import Nombre from './Nombre';
+import Slider from "./Slider";
 
 const styles = theme => ({
     root: {
         margin: 0,
-        padding: theme.spacing(2),
+        padding: theme.spacing(4),
     },
     closeButton: {
         position: 'absolute',
@@ -45,14 +46,14 @@ const DialogTitle = withStyles(styles)(props => {
 
 const DialogContent = withStyles(theme => ({
     root: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(4),
     },
 }))(MuiDialogContent);
 
 const DialogActions = withStyles(theme => ({
     root: {
         margin: 0,
-        padding: theme.spacing(1),
+        padding: theme.spacing(4),
     },
 }))(MuiDialogActions);
 
@@ -74,7 +75,7 @@ class Opciones extends React.Component {
     handleClose() {
         if (this.state.nombres.length) {
             this.setState({open: false});
-            this.props.agregarEquipos(this.state.nombres);
+            // this.props.agregarEquipos(this.state.nombres);
         }
     };
 
@@ -91,17 +92,14 @@ class Opciones extends React.Component {
     };
 
     render(){
+        const {guardarConfig} = this.props;
         return (
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
                 <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-                    Ingrese los equipos
+                    Opciones de juego
                 </DialogTitle>
                 <DialogContent dividers>
-                    {
-                        this.state.nombres.map((nombre, index) => {
-                            return (<Nombre setEquipo={(equipo) => this.cambiarNombre(index, equipo)} agregarEquipoNuevo={()=> this.agregarEquipoNuevo()}/>)
-                        })
-                    }
+                    <Slider guardarConfig={guardarConfig}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleClose} color="secondary">

@@ -111,19 +111,19 @@ class View extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        if (this.props.running !== nextProps.running){
-
-            if (nextProps.running){
+        if (this.props !== nextProps){
+            // if (nextProps.running){
                 this.setState({
                     minutes: nextProps.minutes,
                     seconds: nextProps.seconds,
                     millis: 0
                 });
+            // }
+            if (nextProps.running) {
+                this.interval = setInterval(() => {
+                    this.tick();
+                }, 100);
             }
-
-            this.interval = setInterval(() => {
-                this.tick();
-            }, 100);
         }
         return true;
     }
