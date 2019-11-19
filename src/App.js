@@ -8,14 +8,24 @@ import {palabras} from './data';
 
 import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import PanToolIcon from '@material-ui/icons/PanTool';
 import CheckIcon from '@material-ui/icons/Check';
 
 import {withStyles} from '@material-ui/core/styles';
 
-import {purple} from '@material-ui/core/colors/purple';
 import PropTypes from "prop-types";
 
 import Button from '@material-ui/core/Button';
+import {blue, green, red} from "@material-ui/core/colors";
+
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+    secondary: blue
+  },
+});
 
 const styles = theme => ({
   root: {
@@ -32,7 +42,6 @@ const styles = theme => ({
     position: 'absolute',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
-    backgroundColor: purple
   },
   fabRight: {
     position: 'absolute',
@@ -42,7 +51,7 @@ const styles = theme => ({
   fabTabu: {
     position: 'absolute',
     bottom: theme.spacing(2),
-    left: theme.spacing(2),
+    left: '50vw',
   },
   button: {
     margin: theme.spacing(1),
@@ -93,32 +102,47 @@ class App extends React.Component {
     const {running, puntos, carta, equipo } = this.state;
 
     return (
-        <div className="App">
-          {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
-          <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''}/>
-          <Tiempo minutes={0} seconds={10} running={running} tiempo={()=> this.timeSUp() }/>
-          {running ?
-              <Carta carta={palabras[carta]}/>
-              :
-              <Button variant="contained" color="secondary" className={classes.button} onClick={() => {
-                this.setState({running: true});
-                console.log(this.state);
-              }}>
-                Empezar
-              </Button>
-          }
-          <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
-            if (running){
-              this.setState({ carta: Math.floor(Math.random() * palabras.length)});
-              this.cambiarPuntos(equipo, puntos[equipo].puntos + 1);
+        <ThemeProvider theme={theme}>
+          <div className="App">
+            {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
+            <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''}/>
+            <Tiempo minutes={0} seconds={10} running={running} tiempo={()=> this.timeSUp() }/>
+            {running ?
+                <Carta carta={palabras[carta]}/>
+                :
+                <Button variant="contained" color="secondary" className={classes.button} onClick={() => {
+                  this.setState({ carta: Math.floor(Math.random() * palabras.length), running: true});
+                }}>
+                  Empezar
+                </Button>
             }
-          }}>
-            <CheckIcon />
-          </Fab>
-          <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)}) }}>
-            <ArrowForwardIcon />
-          </Fab>
-        </div>
+            <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
+              if (running){
+                this.setState({ carta: Math.floor(Math.random() * palabras.length)});
+                this.cambiarPuntos(equipo, puntos[equipo].puntos + 1);
+              }
+            }}>
+              <CheckIcon />
+            </Fab>
+            <ThemeProvider
+                theme={theme => createMuiTheme({ ...theme,
+                      palette: { ...theme.palette,
+                        primary: red,
+                      },
+                    })
+                }
+            >
+              <Fab className={[classes.fab, classes.fabTabu]} color="primary" onClick={() => { if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)}) }}>
+                <PanToolIcon />
+              </Fab>
+
+            </ThemeProvider>
+            <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)}) }}>
+              <ArrowForwardIcon />
+            </Fab>
+          </div>
+        </ThemeProvider>
+
     );
   }
 }

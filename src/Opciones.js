@@ -56,7 +56,7 @@ const DialogActions = withStyles(theme => ({
     },
 }))(MuiDialogActions);
 
-class CustomizedDialogs extends React.Component {
+class Opciones extends React.Component {
     constructor(props){
         super(props);
 
@@ -115,10 +115,10 @@ class CustomizedDialogs extends React.Component {
 }
 
 
-CustomizedDialogs.propTypes = {
+Opciones.propTypes = {
     classes: PropTypes.object.isRequired,
     dismiss: PropTypes.func
 };
 
-export default withStyles(styles)(CustomizedDialogs);
+export default withStyles(styles)(Opciones);
   
