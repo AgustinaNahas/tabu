@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 
 import Nombre from './Nombre';
 import Slider from "./Slider";
+import SliderPuntos from "./SliderPuntos";
+import Switch from "./Switch";
 
 const styles = theme => ({
     root: {
@@ -60,49 +62,29 @@ const DialogActions = withStyles(theme => ({
 class Opciones extends React.Component {
     constructor(props){
         super(props);
-
         this.state = {
             open: true,
-            nombres: ['']
         };
-
-        this.handleClose = this.handleClose.bind(this);
-        this.agregarEquipoNuevo = this.agregarEquipoNuevo.bind(this);
-        this.cambiarNombre = this.cambiarNombre.bind(this);
-
     };
 
     handleClose() {
-        if (this.state.nombres.length) {
-            this.setState({open: false});
-            // this.props.agregarEquipos(this.state.nombres);
-        }
-    };
-
-    agregarEquipoNuevo(){
-        var nombresNuevos = this.state.nombres;
-        nombresNuevos.push('');
-        this.setState({nombres: nombresNuevos});
-    };
-
-    cambiarNombre(index, nombre){
-        var nombresNuevos = this.state.nombres;
-        nombresNuevos[index] = nombre;
-        this.setState({nombres: nombresNuevos});
+        this.setState({open: false});
     };
 
     render(){
         const {guardarConfig} = this.props;
         return (
-            <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
-                <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+            <Dialog onClose={() => this.handleClose()} aria-labelledby="customized-dialog-title" open={this.state.open}>
+                <DialogTitle id="customized-dialog-title" onClose={() => this.handleClose()}>
                     Opciones de juego
                 </DialogTitle>
                 <DialogContent dividers>
-                    <Slider guardarConfig={guardarConfig}/>
+                    <Slider guardarConfig={(tiempo) => {guardarConfig('tiempo', tiempo)}}/>
+                    <Switch change={(valor) => {guardarConfig('modoPuntos', valor)}}/>
+                    <SliderPuntos guardarConfig={guardarConfig}/>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.handleClose} color="secondary">
+                    <Button onClick={() => this.handleClose()} color="secondary">
                         Guardar
                     </Button>
                 </DialogActions>

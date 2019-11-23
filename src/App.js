@@ -67,11 +67,15 @@ class App extends React.Component {
       puntos: [],
       running: false,
       carta: 0,
+      finalizado: false,
+      turno: 0,
       config: {
         tiempo: {
           minutes: 0,
           seconds: 30
-        }
+        },
+        modoPuntos: false,
+        puntosFinales: 20
       }
     }
   }
@@ -97,22 +101,36 @@ class App extends React.Component {
 
   timeSUp(){
     this.setState({running: false});
+    if (this.state.config.modoPuntos ){
+      this.setState({finalizado: this.state.config.puntosFinales <= this.state.puntos[this.state.equipo].puntos});
+    } else this.setState({finalizado: this.state.config.puntosFinales <= this.state.turno});
+
     var equipoSiguiente = this.state.equipo + 1;
-    if (equipoSiguiente === this.state.puntos.length)
+    var turno = this.state.turno;
+    if (equipoSiguiente === this.state.puntos.length){
       equipoSiguiente = 0;
-    this.setState({equipo: equipoSiguiente});
+      turno += 1
+    }
+    this.setState({equipo: equipoSiguiente, turno: turno});
+  }
+
+  guardarConfig(key, value){
+    var configAnterior = this.state.config;
+    configAnterior[key] = value;
+    this.setState({config: configAnterior});
   }
 
   render(){
     const {classes} = this.props;
-    const {running, puntos, carta, equipo , config} = this.state;
+    const {running, puntos, carta, equipo , config, finalizado} = this.state;
+
+    if (finalizado) console.log("CHAU CHAU ADIOS");
 
     return (
         <ThemeProvider theme={theme}>
           <div className="App">
             {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
-            <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} guardarConfig={(tiempo) => {
-              this.setState({config: {tiempo: tiempo}})}} puntos={puntos[equipo] ? puntos[equipo].puntos : ''}/>
+            <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''} guardarConfig={(key, value) => this.guardarConfig(key, value)}/>
             <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} tiempo={()=> this.timeSUp() }/>
             {running ?
                 <Carta carta={palabras[carta]}/>

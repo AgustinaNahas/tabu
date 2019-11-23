@@ -15,29 +15,30 @@ const useStyles = makeStyles(theme => ({
 const marks = [
     {
         value: 12.5,
-        label: '15s',
+        label: '5',
     },
     {
         value: 25,
-        label: '30s',
+        label: '10',
     },
     {
         value: 50,
-        label: '1min',
+        label: '20',
     },
     {
         value: 100,
-        label: '2min',
+        label: '40',
     },
 ];
+
+
+function valueLabelFormat(value) {
+    return value*0.4;
+}
 
 function valuetext(value) {
     return `${value}°C`;
 }
-
-// function valueLabelFormat(value) {
-//     return marks.findIndex(mark => mark.value === value) + 1;
-// }
 
 export default function DiscreteSlider(props) {
     const classes = useStyles();
@@ -46,23 +47,18 @@ export default function DiscreteSlider(props) {
         <div className={classes.root}>
             <div className={classes.margin} />
             <Typography id="discrete-slider-restrict" gutterBottom>
-                Tiempo
+                {props.modoPuntos ? "Puntos" : "Turnos"}
             </Typography>
             <Slider
                 defaultValue={25}
-                // valueLabelFormat={valueLabelFormat}
+                valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider-restrict"
-                step={null}
-                // valueLabelDisplay="auto"
+                step={5}
+                valueLabelDisplay="auto"
                 marks={marks}
                 onChange={(event, newValue) => {
-                    props.guardarConfig(
-                        {
-                            minutes: Math.trunc(newValue / 50) ,
-                            seconds: (newValue % 50) * 1.2
-                        }
-                    );
+                    props.guardarConfig('puntosFinales', newValue * 0.4);
                 }}
             />
         </div>
