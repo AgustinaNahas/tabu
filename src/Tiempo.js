@@ -72,9 +72,15 @@ class View extends React.Component {
             millis: 0
         };
 
+        this.interval = setInterval(() => {
+            this.tick();
+        }, 100);
+
     }
 
     tick() {
+        if (!this.props.running) return;
+
         let millis = this.state.millis - 1;
         let seconds = this.state.seconds;
         let minutes = this.state.minutes;
@@ -92,7 +98,6 @@ class View extends React.Component {
 
         if (minutes<0 ){
             if (this.props.running) this.props.tiempo();
-            clearInterval(this.interval);
         } else {
             this.update(millis, seconds, minutes);
         }
@@ -111,19 +116,12 @@ class View extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        if (this.props !== nextProps){
-            // if (nextProps.running){
-                this.setState({
-                    minutes: nextProps.minutes,
-                    seconds: nextProps.seconds,
-                    millis: 0
-                });
-            // }
-            if (nextProps.running) {
-                this.interval = setInterval(() => {
-                    this.tick();
-                }, 100);
-            }
+        if (this.props !== nextProps && (!this.props.running || !nextProps.running)){
+            this.setState({
+                minutes: nextProps.minutes,
+                seconds: nextProps.seconds,
+                millis: 0
+            });
         }
         return true;
     }
