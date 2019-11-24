@@ -43,7 +43,7 @@ class ButtonAppBar extends React.Component {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                {opciones ? <Opciones guardarConfig={guardarConfig}/> : ''}
+                {opciones ? <Opciones open={opciones} close={() => {this.setState({opciones: false})}} guardarConfig={guardarConfig}/> : ''}
             </div>
         );
     }

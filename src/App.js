@@ -3,6 +3,7 @@ import './App.css';
 import Carta from './Carta';
 import Header from './Header';
 import Tiempo from './Tiempo';
+import Puntos from './Puntos';
 import Equipo from './Equipo';
 import {palabras} from './data';
 
@@ -75,7 +76,7 @@ class App extends React.Component {
           seconds: 30
         },
         modoPuntos: false,
-        puntosFinales: 20
+        puntosFinales: 10
       }
     }
   }
@@ -105,6 +106,8 @@ class App extends React.Component {
       this.setState({finalizado: this.state.config.puntosFinales <= this.state.puntos[this.state.equipo].puntos});
     } else this.setState({finalizado: this.state.config.puntosFinales <= this.state.turno});
 
+    console.log(this.state.config.modoPuntos, this.state.config.puntosFinales, this.state.equipo, this.state.puntos[this.state.equipo].puntos);
+
     var equipoSiguiente = this.state.equipo + 1;
     var turno = this.state.turno;
     if (equipoSiguiente === this.state.puntos.length){
@@ -115,61 +118,79 @@ class App extends React.Component {
   }
 
   guardarConfig(key, value){
+    console.log(key, value);
+
     var configAnterior = this.state.config;
+    console.log(configAnterior);
+
     configAnterior[key] = value;
     this.setState({config: configAnterior});
+    console.log(configAnterior);
   }
 
   render(){
     const {classes} = this.props;
     const {running, puntos, carta, equipo , config, finalizado} = this.state;
 
-    if (finalizado) console.log("CHAU CHAU ADIOS");
-
     return (
         <ThemeProvider theme={theme}>
           <div className="App">
             {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
             <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''} guardarConfig={(key, value) => this.guardarConfig(key, value)}/>
-            <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} tiempo={()=> this.timeSUp() }/>
-            {running ?
-                <Carta carta={palabras[carta]}/>
-                :
-                <Button variant="contained" color="secondary" className={classes.button} onClick={() => {
-                  this.setState({ carta: Math.floor(Math.random() * palabras.length), running: true});
-                }}>
-                  Empezar
-                </Button>
-            }
-            <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
-              if (running){
-                this.setState({ carta: Math.floor(Math.random() * palabras.length)});
-                this.cambiarPuntos(equipo, puntos[equipo].puntos + 1);
-              }
-            }}>
-              <CheckIcon />
-            </Fab>
-            <ThemeProvider
-                theme={theme => createMuiTheme({ ...theme,
-                      palette: { ...theme.palette,
-                        primary: red,
-                      },
-                    })
-                }
-            >
-              <Fab className={[classes.fab, classes.fabTabu]} color="primary" onClick={() => {
-                if (running){
-                  this.setState({ carta: Math.floor(Math.random() * palabras.length)});
-                  this.cambiarPuntos(equipo, puntos[equipo].puntos - 1);
-                }
-              }}>
-                <PanToolIcon />
-              </Fab>
+            {finalizado ?
+              ''
+              :
+                <div>
+                  <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} tiempo={()=> this.timeSUp() }/>
+                  {running ?
+                      <Carta carta={palabras[carta]}/>
+                      :
+                      ( finalizado
+                          ?
+                      ''
+                            :
+                            <div>
+                              <Puntos puntos={puntos}/>
+                              <Button variant="contained" color="secondary" className={classes.button} onClick={() => {
+                                this.setState({ carta: Math.floor(Math.random() * palabras.length), running: true});
+                              }}>
+                                Empezar
+                              </Button>
 
-            </ThemeProvider>
-            <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)}) }}>
-              <ArrowForwardIcon />
-            </Fab>
+                            </div>
+                      )
+                  }
+                  <Fab className={[classes.fab, classes.fabLeft]} color="primary" onClick={() => {
+                    if (running){
+                      this.setState({ carta: Math.floor(Math.random() * palabras.length)});
+                      this.cambiarPuntos(equipo, puntos[equipo].puntos + 1);
+                    }
+                  }}>
+                    <CheckIcon />
+                  </Fab>
+                  <ThemeProvider
+                      theme={theme => createMuiTheme({ ...theme,
+                        palette: { ...theme.palette,
+                          primary: red,
+                        },
+                      })
+                      }
+                  >
+                    <Fab className={[classes.fab, classes.fabTabu]} color="primary" onClick={() => {
+                      if (running){
+                        this.setState({ carta: Math.floor(Math.random() * palabras.length)});
+                        this.cambiarPuntos(equipo, puntos[equipo].puntos - 1);
+                      }
+                    }}>
+                      <PanToolIcon />
+                    </Fab>
+
+                  </ThemeProvider>
+                  <Fab className={[classes.fab, classes.fabRight]} color="secondary" onClick={() => { if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)}) }}>
+                    <ArrowForwardIcon />
+                  </Fab>
+                </div>
+            }
           </div>
         </ThemeProvider>
 

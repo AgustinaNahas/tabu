@@ -60,27 +60,27 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 class Opciones extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            open: true,
-        };
-    };
 
     handleClose() {
-        this.setState({open: false});
+        this.props.close();
     };
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log(this.props.open, nextProps);
+        return true;
+    }
+
     render(){
-        const {guardarConfig} = this.props;
+        const {guardarConfig, open} = this.props;
+
         return (
-            <Dialog onClose={() => this.handleClose()} aria-labelledby="customized-dialog-title" open={this.state.open}>
+            <Dialog onClose={() => this.handleClose()} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title" onClose={() => this.handleClose()}>
                     Opciones de juego
                 </DialogTitle>
                 <DialogContent dividers>
                     <Slider guardarConfig={(tiempo) => {guardarConfig('tiempo', tiempo)}}/>
-                    <Switch change={(valor) => {guardarConfig('modoPuntos', valor)}}/>
+                    <Switch change={(valor) => {guardarConfig('modoPuntos', !valor);}}/>
                     <SliderPuntos guardarConfig={guardarConfig}/>
                 </DialogContent>
                 <DialogActions>

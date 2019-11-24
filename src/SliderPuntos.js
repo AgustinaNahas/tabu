@@ -54,7 +54,7 @@ export default function DiscreteSlider(props) {
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 aria-labelledby="discrete-slider-restrict"
-                step={5}
+                step={2.5}
                 valueLabelDisplay="auto"
                 marks={marks}
                 onChange={(event, newValue) => {
