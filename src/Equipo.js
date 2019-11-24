@@ -68,6 +68,7 @@ class CustomizedDialogs extends React.Component {
         this.handleClose = this.handleClose.bind(this);
         this.agregarEquipoNuevo = this.agregarEquipoNuevo.bind(this);
         this.cambiarNombre = this.cambiarNombre.bind(this);
+        this.quitarEquipo = this.quitarEquipo.bind(this);
 
     };
 
@@ -84,6 +85,14 @@ class CustomizedDialogs extends React.Component {
         this.setState({nombres: nombresNuevos});
     };
 
+    quitarEquipo(index){
+
+        var nombresNuevos = this.state.nombres;
+
+        nombresNuevos.splice(index, 1);
+        this.setState({nombres: nombresNuevos});
+    };
+
     cambiarNombre(index, nombre){
         var nombresNuevos = this.state.nombres;
         nombresNuevos[index] = nombre;
@@ -91,6 +100,7 @@ class CustomizedDialogs extends React.Component {
     };
 
     render(){
+
         return (
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
                 <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
@@ -99,7 +109,7 @@ class CustomizedDialogs extends React.Component {
                 <DialogContent dividers>
                     {
                         this.state.nombres.map((nombre, index) => {
-                            return (<Nombre key={index} setEquipo={(equipo) => this.cambiarNombre(index, equipo)} agregarEquipoNuevo={()=> this.agregarEquipoNuevo()}/>)
+                            return (<Nombre key={index} nombreInicial={nombre} setEquipo={(equipo) => this.cambiarNombre(index, equipo)} agregarEquipoNuevo={()=> this.agregarEquipoNuevo()} quitarEquipo={()=>{this.quitarEquipo(index)}}/>)
                         })
                     }
                 </DialogContent>

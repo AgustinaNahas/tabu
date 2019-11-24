@@ -132,7 +132,6 @@ class View extends React.Component {
         return (
             <Card className={classes.card}>
                 <CardContent>
-
                     <Grid container justify="center" spacing={3}>
                         <Grid item xs={12} className={classes.alignCenter}>
                             <Typography variant="h5" component="h2">
@@ -142,7 +141,6 @@ class View extends React.Component {
                             </Typography>
                         </Grid>
                     </Grid>
-
                 </CardContent>
             </Card>);
     }

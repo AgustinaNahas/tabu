@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
-
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const styles = theme => ({
     root: {
@@ -18,23 +18,31 @@ const styles = theme => ({
         color: theme.palette.grey[500],
     },
     button: {
-        marginTop: 16
+        marginTop: 20
     },
     textField: {
         marginLeft: 20,
         marginRight: 20,
     },
     margin: {
-        marginTop: theme.spacing(2),
+        marginTop: 30,
+        padding: 8
     },
 });
 
 function CustomizedDialogs(props) {
-    const { classes, agregarEquipoNuevo, setEquipo } = props;
+    const { classes, nombreInicial, agregarEquipoNuevo, setEquipo, quitarEquipo } = props;
     const [nombre, setNombre] = React.useState('');
+
+    React.useEffect(() => {
+        setNombre(nombreInicial);
+    }, [nombreInicial]);
 
     return (
         <div>
+            <IconButton aria-label="delete" className={classes.margin} onClick={() => quitarEquipo()}>
+                <RemoveIcon fontSize="small" />
+            </IconButton>
             <TextField
                 id="standard-name"
                 label="Nombre"
