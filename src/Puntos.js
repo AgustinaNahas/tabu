@@ -65,15 +65,13 @@ class View extends React.Component {
     render() {
         const {classes, puntos} = this.props;
 
-        console.log(puntos);
-
         return (
             <Card className={classes.card}>
                 <CardContent>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} justify="center" className={classes.alignCenter}>
-                            {puntos.map((equipo) => {
-                                return (<Typography variant="h5" component="h2">
+                    <Grid container justify="center" spacing={3}>
+                        <Grid item xs={12} className={classes.alignCenter}>
+                            {puntos.map((equipo, index) => {
+                                return (<Typography key={index} variant="h5" component="h2">
                                     {equipo.nombre}: {equipo.puntos}
                                     </Typography>);
                             })}

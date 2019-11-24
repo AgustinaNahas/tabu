@@ -39,8 +39,8 @@ export default function SimpleCard(props) {
                 </Typography>
                 <br />
                 <Typography variant="body2" component="p">
-                    {carta.tabues.map((tabu)=>
-                        <div>
+                    {carta.tabues.map((tabu, index)=>
+                        <div key={index}>
                             {tabu}
                             <br />
                         </div>

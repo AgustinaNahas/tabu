@@ -99,7 +99,7 @@ class CustomizedDialogs extends React.Component {
                 <DialogContent dividers>
                     {
                         this.state.nombres.map((nombre, index) => {
-                            return (<Nombre setEquipo={(equipo) => this.cambiarNombre(index, equipo)} agregarEquipoNuevo={()=> this.agregarEquipoNuevo()}/>)
+                            return (<Nombre key={index} setEquipo={(equipo) => this.cambiarNombre(index, equipo)} agregarEquipoNuevo={()=> this.agregarEquipoNuevo()}/>)
                         })
                     }
                 </DialogContent>

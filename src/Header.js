@@ -30,9 +30,9 @@ class ButtonAppBar extends React.Component {
 
         return (
             <div className={classes.root}>
-                <AppBar position="static" color="none">
+                <AppBar position="static">
                     <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => this.setState({opciones: true})}>
+                        <IconButton edge="start" className={classes.menuButton} aria-label="menu" onClick={() => this.setState({opciones: true})}>
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>

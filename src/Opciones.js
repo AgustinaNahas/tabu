@@ -10,7 +10,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
-import Nombre from './Nombre';
 import Slider from "./Slider";
 import SliderPuntos from "./SliderPuntos";
 import Switch from "./Switch";
@@ -66,7 +65,6 @@ class Opciones extends React.Component {
     };
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        console.log(this.props.open, nextProps);
         return true;
     }
 

@@ -133,8 +133,8 @@ class View extends React.Component {
             <Card className={classes.card}>
                 <CardContent>
 
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} justify="center" className={classes.alignCenter}>
+                    <Grid container justify="center" spacing={3}>
+                        <Grid item xs={12} className={classes.alignCenter}>
                             <Typography variant="h5" component="h2">
                                 <span className="mins">{this.zeroPad(this.state.minutes)}:</span>
                                 <span className="secs">{this.zeroPad(this.state.seconds)}</span>
