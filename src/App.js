@@ -87,7 +87,8 @@ class App extends React.Component {
     equipos.forEach((equipo, index)=> {
       arrayPuntos[index] = {
         nombre: equipo,
-        puntos: 0
+        puntos: [],
+        totales: 0
       };
     });
 
@@ -96,14 +97,16 @@ class App extends React.Component {
 
   cambiarPuntos(equipoActual, puntosNuevos){
     var puntosActuales = this.state.puntos;
-    puntosActuales[equipoActual].puntos = puntosNuevos;
-    this.setState({puntos: puntosActuales});
+    if (puntosActuales[equipoActual].puntos[this.state.turno] === undefined) puntosActuales[equipoActual].puntos[this.state.turno] = 0;
+    puntosActuales[equipoActual].puntos[this.state.turno] += puntosNuevos;
+    puntosActuales[equipoActual].totales += puntosNuevos;
+    this.setState({puntos: puntosActuales });
   };
 
   timeSUp(){
     this.setState({running: false});
     if (this.state.config.modoPuntos ){
-      this.setState({finalizado: this.state.config.puntosFinales <= this.state.puntos[this.state.equipo].puntos});
+      this.setState({finalizado: this.state.config.puntosFinales <= this.state.puntos[this.state.equipo].totales});
     };
 
     var equipoSiguiente = this.state.equipo + 1;
@@ -133,9 +136,9 @@ class App extends React.Component {
         <ThemeProvider theme={theme}>
           <div className="App">
             {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
-            <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].puntos : ''} guardarConfig={(key, value) => this.guardarConfig(key, value)}/>
+            <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''} puntos={puntos[equipo] ? puntos[equipo].totales : ''} guardarConfig={(key, value) => this.guardarConfig(key, value)}/>
             {finalizado ?
-                <Puntos puntos={puntos}/>
+                <Puntos puntos={puntos} turnos={this.state.turno}/>
               :
                 <div>
                   <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} tiempo={()=> this.timeSUp() }/>
@@ -147,6 +150,8 @@ class App extends React.Component {
                       ''
                             :
                             <div>
+                              <Puntos puntos={puntos} turnos={this.state.turno}/>
+
                               <Button variant="contained" color="secondary" className={classes.button} onClick={() => {
                                 this.setState({ carta: Math.floor(Math.random() * palabras.length), running: true});
                               }}>
@@ -159,7 +164,7 @@ class App extends React.Component {
                   <Fab className={`${classes.fabLeft} ${classes.fab}`} color="primary" onClick={() => {
                     if (running){
                       this.setState({ carta: Math.floor(Math.random() * palabras.length)});
-                      this.cambiarPuntos(equipo, puntos[equipo].puntos + 1);
+                      this.cambiarPuntos(equipo, 1);
                     }
                   }}>
                     <CheckIcon />
@@ -175,7 +180,7 @@ class App extends React.Component {
                     <Fab className={`${classes.fabTabu} ${classes.fab}`} color="primary" onClick={() => {
                       if (running){
                         this.setState({ carta: Math.floor(Math.random() * palabras.length)});
-                        this.cambiarPuntos(equipo, puntos[equipo].puntos - 1);
+                        this.cambiarPuntos(equipo,  - 1);
                       }
                     }}>
                       <PanToolIcon />
