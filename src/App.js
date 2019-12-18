@@ -19,6 +19,9 @@ import PropTypes from "prop-types";
 import Button from '@material-ui/core/Button';
 import {blue, green, red} from "@material-ui/core/colors";
 
+import axios from 'axios';
+
+
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
@@ -126,6 +129,25 @@ class App extends React.Component {
     var configAnterior = this.state.config;
     configAnterior[key] = value;
     this.setState({config: configAnterior});
+  }
+
+  componentDidMount() {
+
+    var cantidad = this.state.config.tiempo.minutes * 120 +  this.state.config.tiempo.seconds * 2;
+
+    axios.get('https://api-tabu-symfony.herokuapp.com/get/words/${cantidad}')
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+
   }
 
   render(){
