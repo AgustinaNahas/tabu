@@ -38,14 +38,13 @@ export default function SimpleCard(props) {
                     {carta.palabra}
                 </Typography>
                 <br />
-                <Typography variant="body2" component="p">
-                    {carta.tabues.map((tabu, index)=>
-                        <div key={index}>
-                            {tabu}
-                            <br />
-                        </div>
-                    )}
-                </Typography>
+                {carta.words.map((tabu, index)=>
+                    <Typography key={index} variant="body2" component="p">
+
+                        {tabu}
+                        <br />
+                    </Typography>
+                )}
             </CardContent>
             <CardActions>
                 <Button size="small">Ayuda</Button>

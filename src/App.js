@@ -5,7 +5,7 @@ import Header from './Header';
 import Tiempo from './Tiempo';
 import Puntos from './Puntos';
 import Equipo from './Equipo';
-import {palabras} from './data';
+// import {palabras} from './data';
 
 import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -73,6 +73,7 @@ class App extends React.Component {
       carta: 0,
       finalizado: false,
       turno: 0,
+      palabras: [],
       config: {
         tiempo: {
           minutes: 0,
@@ -134,25 +135,22 @@ class App extends React.Component {
   componentDidMount() {
 
     var cantidad = this.state.config.tiempo.minutes * 120 +  this.state.config.tiempo.seconds * 2;
+    var self = this;
 
-    axios.get('https://api-tabu-symfony.herokuapp.com/get/words/${cantidad}')
+    axios.get(`https://api-tabu-symfony.herokuapp.com/get/words/${cantidad}`)
         .then(function (response) {
           // handle success
-          console.log(response);
+          self.setState({palabras: response.data});
+          console.log(response.data);
         })
         .catch(function (error) {
-          // handle error
           console.log(error);
         })
-        .finally(function () {
-          // always executed
-        });
-
   }
 
   render(){
     const {classes} = this.props;
-    const {running, puntos, carta, equipo , config, finalizado} = this.state;
+    const {running, puntos, carta, equipo , config, finalizado, palabras} = this.state;
 
     return (
         <ThemeProvider theme={theme}>
