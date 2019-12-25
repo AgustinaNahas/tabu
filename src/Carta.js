@@ -34,12 +34,12 @@ export default function SimpleCard(props) {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     Palabra
                 </Typography>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h3" component="h2">
                     {carta.palabra}
                 </Typography>
                 <br />
                 {carta.words.map((tabu, index)=>
-                    <Typography key={index} variant="body2" component="p">
+                    <Typography key={index} variant="h6" component="p">
 
                         {tabu}
                         <br />

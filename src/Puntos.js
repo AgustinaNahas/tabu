@@ -13,14 +13,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
     root: {
         width: '100%',
         overflowX: 'auto',
-    },
-    table: {
-        minWidth: 650,
     },
 });
 
@@ -41,7 +39,11 @@ function SimpleTable(props) {
                 <TableHead>
                     <TableRow>
                         {equipos.map((equipo, index)=>{
-                            return (<TableCell key={index} align="right">{equipo.nombre}</TableCell>);
+                            return (<TableCell key={index} align="right">
+                                <Typography key={index} variant="h6" component="p">
+                                    {equipo.nombre}
+                                </Typography>
+                            </TableCell>);
                         })}
                     </TableRow>
                 </TableHead>
@@ -49,7 +51,11 @@ function SimpleTable(props) {
                     {puntos.map((turno, index) => (
                         <TableRow key={index}>
                             {turno.map((punto, index2)=>
-                                <TableCell key={index2} align="right">{punto}</TableCell>
+                                <TableCell key={index2} align="right">
+                                    <Typography key={index} variant="h6" component="p">
+                                        {punto}
+                                    </Typography>
+                                </TableCell>
                             )}
                         </TableRow>
                     ))}
