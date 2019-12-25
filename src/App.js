@@ -5,25 +5,14 @@ import Header from './Header';
 import Tiempo from './Tiempo';
 import Puntos from './Puntos';
 import Equipo from './Equipo';
-import Api from './Api';
-// import {palabras} from './data';
-
-import Fab from '@material-ui/core/Fab';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import PanToolIcon from '@material-ui/icons/PanTool';
-import CheckIcon from '@material-ui/icons/Check';
+import Api from './Model/Api';
 
 import {withStyles} from '@material-ui/core/styles';
 
 import PropTypes from "prop-types";
 
-import Button from '@material-ui/core/Button';
-import {blue, green, red} from "@material-ui/core/colors";
-
-import axios from 'axios';
-
-
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import Botones from "./Botones";
 
 const theme = createMuiTheme({
     palette: {
@@ -49,33 +38,6 @@ const styles = theme => ({
         position: 'relative',
         minHeight: 200,
     },
-    fab: {
-        position: 'absolute',
-        bottom: theme.spacing(2),
-    },
-    fabLeft: {
-        position: 'absolute',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2),
-    },
-    fabRight: {
-        position: 'absolute',
-        bottom: theme.spacing(2),
-        left: theme.spacing(2),
-    },
-    fabTabu: {
-        position: 'absolute',
-        bottom: theme.spacing(2),
-        left: '45vw',
-    },
-    button: {
-        margin: theme.spacing(1),
-        position: 'absolute',
-        width: '96%',
-        bottom: theme.spacing(2),
-        left: 0,
-
-    }
 });
 
 class App extends React.Component {
@@ -187,67 +149,7 @@ class App extends React.Component {
                         <div>
                             <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running}
                                     tiempo={() => this.timeSUp()}/>
-                            {running ?
-                                <div>
-                                    <Carta carta={palabras[carta]}/>
-                                    <Fab className={`${classes.fabLeft} ${classes.fab}`} color="primary"
-                                         onClick={() => {
-                                             if (running) {
-                                                 this.setState({carta: Math.floor(Math.random() * palabras.length)});
-                                                 this.cambiarPuntos(equipo, 1);
-                                             }
-                                         }}>
-                                        <CheckIcon/>
-                                    </Fab>
-                                    <ThemeProvider
-                                        theme={theme => createMuiTheme({
-                                            ...theme,
-                                            palette: {
-                                                ...theme.palette,
-                                                primary: red,
-                                            },
-                                        })
-                                        }
-                                    >
-                                        <Fab className={`${classes.fabTabu} ${classes.fab}`} color="primary"
-                                             onClick={() => {
-                                                 if (running) {
-                                                     this.setState({carta: Math.floor(Math.random() * palabras.length)});
-                                                     this.cambiarPuntos(equipo, -1);
-                                                 }
-                                             }}>
-                                            <PanToolIcon/>
-                                        </Fab>
-
-                                    </ThemeProvider>
-                                    <Fab className={`${classes.fabRight} ${classes.fab}`} color="secondary"
-                                         onClick={() => {
-                                             if (running) this.setState({carta: Math.floor(Math.random() * palabras.length)})
-                                         }}>
-                                        <ArrowForwardIcon/>
-                                    </Fab>
-                                </div>
-                                :
-                                (finalizado
-                                        ?
-                                        ''
-                                        :
-                                        <div>
-                                            <Puntos puntos={puntos} turnos={this.state.turno}/>
-
-                                            <Button variant="contained" color="secondary" className={classes.button}
-                                                    onClick={() => {
-                                                        this.setState({
-                                                            carta: Math.floor(Math.random() * palabras.length),
-                                                            running: true
-                                                        });
-                                                    }}>
-                                                Empezar
-                                            </Button>
-
-                                        </div>
-                                )
-                            }
+                                    <Botones app={this}/>
                         </div>
                     }
                 </div>
