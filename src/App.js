@@ -61,7 +61,7 @@ const styles = theme => ({
     button: {
         margin: theme.spacing(1),
         position: 'absolute',
-        width: '100%',
+        width: '96%',
         bottom: theme.spacing(2),
         left: 0,
 
