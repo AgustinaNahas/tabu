@@ -74,7 +74,9 @@ class Opciones extends React.Component {
         return (
             <Dialog onClose={() => this.handleClose()} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title" onClose={() => this.handleClose()}>
-                    Opciones de juego
+                    <Typography variant="h6" component="p">
+                        Opciones de juego
+                    </Typography>
                 </DialogTitle>
                 <DialogContent dividers>
                     <Slider guardarConfig={(tiempo) => {guardarConfig('tiempo', tiempo)}}/>
@@ -83,7 +85,9 @@ class Opciones extends React.Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => this.handleClose()} color="secondary">
-                        Guardar
+                        <Typography variant="h6" component="p">
+                            Guardar
+                        </Typography>
                     </Button>
                 </DialogActions>
             </Dialog>

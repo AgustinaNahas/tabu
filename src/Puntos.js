@@ -126,11 +126,6 @@ class View extends React.Component {
                 <CardContent>
                     <Grid container justify="center" spacing={3}>
                         <Grid item xs={12} className={classes.alignCenter}>
-                            {/*{puntos.map((equipo, index) => {*/}
-                            {/*    return (<Typography key={index} variant="h5" component="h2">*/}
-                            {/*        {equipo.nombre}: {equipo.totales}*/}
-                            {/*        </Typography>);*/}
-                            {/*})}*/}
                             <SimpleTable equipos={puntos} turnos={turnos}/>
                         </Grid>
                     </Grid>

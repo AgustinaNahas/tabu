@@ -47,7 +47,11 @@ export default function SimpleCard(props) {
                 )}
             </CardContent>
             <CardActions>
-                <Button size="small">Ayuda</Button>
+                <Button size="small">
+                    <Typography variant="h6" component="p">
+                        Ayuda
+                    </Typography>
+                </Button>
             </CardActions>
         </Card>
     );

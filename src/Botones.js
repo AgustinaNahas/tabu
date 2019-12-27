@@ -13,6 +13,7 @@ import Puntos from './Puntos'
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import PanToolIcon from '@material-ui/icons/PanTool';
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -83,7 +84,9 @@ export default function Botones(props) {
 
                 <Button variant="contained" color="secondary" className={classes.button}
                         onClick={() => {start(app)}}>
-                    Empezar
+                    <Typography variant="h6" component="p">
+                        Empezar
+                    </Typography>
                 </Button>
             </div>
 );

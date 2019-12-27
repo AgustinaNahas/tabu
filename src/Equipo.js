@@ -104,7 +104,9 @@ class CustomizedDialogs extends React.Component {
         return (
             <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.open}>
                 <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-                    Ingrese los equipos
+                    <Typography variant="h6" component="p">
+                        Ingrese los equipos
+                    </Typography>
                 </DialogTitle>
                 <DialogContent dividers>
                     {
@@ -115,7 +117,9 @@ class CustomizedDialogs extends React.Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleClose} color="secondary">
-                        Guardar
+                        <Typography variant="h6" component="p">
+                            Guardar
+                        </Typography>
                     </Button>
                 </DialogActions>
             </Dialog>
