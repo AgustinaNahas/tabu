@@ -133,8 +133,8 @@ class App extends React.Component {
     }
 
     render() {
-        const {classes} = this.props;
-        const {running, puntos, carta, equipo, config, finalizado, palabras} = this.state;
+        // const {classes} = this.props;
+        const {running, puntos, equipo, config, finalizado} = this.state;
 
         return (
             <ThemeProvider theme={theme}>
@@ -142,7 +142,9 @@ class App extends React.Component {
                     {!puntos.length ? <Equipo agregarEquipos={(equipos) => this.agregarEquipos(equipos)}/> : ''}
                     <Header nombre={puntos[equipo] ? puntos[equipo].nombre : ''}
                             puntos={puntos[equipo] ? puntos[equipo].totales : ''}
-                            guardarConfig={(key, value) => this.guardarConfig(key, value)}/>
+                            guardarConfig={(key, value) => this.guardarConfig(key, value)}
+                            running={running}
+                    />
                     {finalizado ?
                         <Puntos puntos={puntos} turnos={this.state.turno}/>
                         :

@@ -25,14 +25,14 @@ class ButtonAppBar extends React.Component {
     }
 
     render(){
-        const {classes, guardarConfig} = this.props;
+        const {classes, guardarConfig, running} = this.props;
         const {opciones} = this.state;
 
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} aria-label="menu" onClick={() => this.setState({opciones: true})}>
+                        <IconButton edge="start" className={classes.menuButton} aria-label="menu" onClick={() => {if (!running) this.setState({opciones: true})}}>
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>

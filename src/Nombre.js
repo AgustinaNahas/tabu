@@ -31,16 +31,18 @@ const styles = theme => ({
 });
 
 function CustomizedDialogs(props) {
-    const { classes, nombreInicial, agregarEquipoNuevo, setEquipo, quitarEquipo } = props;
+    const { classes, nombreInicial, agregarEquipoNuevo, setEquipo, quitarEquipo, index } = props;
     const [nombre, setNombre] = React.useState('');
 
     React.useEffect(() => {
         setNombre(nombreInicial);
     }, [nombreInicial]);
 
+    console.log(index);
+
     return (
         <div>
-            <IconButton aria-label="delete" className={classes.margin} onClick={() => quitarEquipo()}>
+            <IconButton disabled={index === 0} aria-label="delete" className={classes.margin} onClick={() => quitarEquipo()}>
                 <RemoveIcon fontSize="small" />
             </IconButton>
             <TextField
