@@ -23,6 +23,7 @@ const styles = theme => ({
     textField: {
         marginLeft: 20,
         marginRight: 20,
+        width: '50%'
     },
     margin: {
         marginTop: 30,
