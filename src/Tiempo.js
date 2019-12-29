@@ -79,7 +79,7 @@ class View extends React.Component {
     }
 
     tick() {
-        if (!this.props.running) return;
+        if (!this.props.running || this.props.pause) return;
 
         let millis = this.state.millis - 1;
         let seconds = this.state.seconds;

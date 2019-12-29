@@ -6,6 +6,11 @@ import PropTypes from "prop-types";
 import {withStyles} from "@material-ui/styles";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+
+import {pass, stop} from './Model/Gameplay'
+
 
 import Opciones from './Opciones';
 
@@ -25,7 +30,7 @@ class ButtonAppBar extends React.Component {
     }
 
     render(){
-        const {classes, guardarConfig, running} = this.props;
+        const {classes, guardarConfig, running, app} = this.props;
         const {opciones} = this.state;
 
         return (
@@ -41,6 +46,13 @@ class ButtonAppBar extends React.Component {
                         <Typography variant="h6" className={classes.title}>
                             {this.props.puntos}
                         </Typography>
+                        {
+                            app.state.running ?
+                                <IconButton edge="end" onClick={() => {stop(app)}}>
+                                    {app.state.pause ? <PlayArrowIcon /> : <PauseIcon />}
+                                </IconButton>  :''
+
+                        }
                     </Toolbar>
                 </AppBar>
                 {opciones ? <Opciones open={opciones} close={() => {this.setState({opciones: false})}} guardarConfig={guardarConfig}/> : ''}

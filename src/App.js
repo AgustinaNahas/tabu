@@ -48,6 +48,7 @@ class App extends React.Component {
             equipo: 0,
             puntos: [],
             running: false,
+            pause: false,
             carta: 0,
             finalizado: false,
             turno: 0,
@@ -89,8 +90,7 @@ class App extends React.Component {
         this.setState({running: false});
         if (this.state.config.modoPuntos) {
             this.setState({finalizado: this.state.config.puntosFinales <= this.state.puntos[this.state.equipo].totales});
-        }
-        ;
+        };
 
         var equipoSiguiente = this.state.equipo + 1;
         var turno = this.state.turno;
@@ -134,7 +134,7 @@ class App extends React.Component {
 
     render() {
         // const {classes} = this.props;
-        const {running, puntos, equipo, config, finalizado} = this.state;
+        const {running, puntos, equipo, config, finalizado, pause} = this.state;
 
         return (
             <ThemeProvider theme={theme}>
@@ -144,12 +144,13 @@ class App extends React.Component {
                             puntos={puntos[equipo] ? puntos[equipo].totales : ''}
                             guardarConfig={(key, value) => this.guardarConfig(key, value)}
                             running={running}
+                            app={this}
                     />
                     {finalizado ?
                         <Puntos puntos={puntos} turnos={this.state.turno}/>
                         :
                         <div>
-                            <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running}
+                            <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} pause={pause}
                                     tiempo={() => this.timeSUp()}/>
                                     <Botones app={this}/>
                         </div>

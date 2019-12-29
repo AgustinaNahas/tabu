@@ -21,3 +21,7 @@ export function pass(app){
 export function start(app){
     app.setState({   carta: Math.floor(Math.random() * app.state.palabras.length), running: true });
 }
+
+export function stop(app){
+    if (app.state.running) app.setState({   pause: !app.state.pause });
+}
