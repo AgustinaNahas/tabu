@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import Tooltip from '@material-ui/core/Tooltip';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const styles = theme => ({
     root: {
@@ -32,14 +34,26 @@ const styles = theme => ({
 });
 
 function CustomizedDialogs(props) {
-    const { classes, nombreInicial, agregarEquipoNuevo, setEquipo, quitarEquipo, index } = props;
+    const { classes, nombreInicial, agregarEquipoNuevo, setEquipo, quitarEquipo, index, cantidad } = props;
     const [nombre, setNombre] = React.useState('');
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleTooltipClose = () => {
+        setOpen(false);
+    };
+
+    const handleTooltipOpen = () => {
+        setOpen(true);
+    };
 
     React.useEffect(() => {
         setNombre(nombreInicial);
     }, [nombreInicial]);
 
     console.log(index);
+
+
 
     return (
         <div>
@@ -58,9 +72,24 @@ function CustomizedDialogs(props) {
                     setEquipo(nombre.target.value);
                 }}
             />
-            <IconButton aria-label="delete" className={classes.margin} onClick={() => agregarEquipoNuevo()}>
-                <AddIcon fontSize="small" />
-            </IconButton>
+
+            <ClickAwayListener onClickAway={handleTooltipClose}>
+                    <Tooltip
+                        PopperProps={{
+                            disablePortal: true,
+                        }}
+                        onClose={handleTooltipClose}
+                        open={open}
+                        disableFocusListener
+                        disableHoverListener
+                        disableTouchListener
+                        title="Max 5 equipos"
+                    >
+                        <IconButton aria-label="delete" className={classes.margin} onClick={() => {if (cantidad < 5) agregarEquipoNuevo(); else handleTooltipOpen()}}>
+                            <AddIcon fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+            </ClickAwayListener>
         </div>
     );
 }

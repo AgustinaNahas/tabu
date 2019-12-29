@@ -11,8 +11,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import { win, lose, pass, start } from './Model/Gameplay'
 import Puntos from './Puntos'
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import PanToolIcon from '@material-ui/icons/PanTool';
+import CloseIcon from '@material-ui/icons/Close';
+import RedoIcon from '@material-ui/icons/Redo';
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
@@ -67,13 +67,13 @@ export default function Botones(props) {
             >
                 <Fab className={`${classes.fabTabu} ${classes.fab}`} color="primary"
                      onClick={() => {lose(app)}}>
-                    <PanToolIcon/>
+                    <CloseIcon/>
                 </Fab>
 
             </ThemeProvider>
             <Fab className={`${classes.fabRight} ${classes.fab}`} color="secondary"
                  onClick={() => {pass(app)}}>
-                <ArrowForwardIcon/>
+                <RedoIcon/>
             </Fab>
         </div>)
     }
