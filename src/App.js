@@ -13,32 +13,41 @@ import PropTypes from "prop-types";
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import Botones from "./Botones";
+import {Paper} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
 const theme = createMuiTheme({
     palette: {
         primary: {
-            light: '#af5666',
+            dark: '#af5666',
             main: '#FA7C92',
-            dark: '#fb96a7',
+            light: '#fb96a7',
             contrastText: '#fff',
         },
         secondary: {
-            light: '#4d899a',
+            dark: '#4d899a',
             main: '#6EC5DC',
-            dark: '#8bd0e3',
+            light: '#8bd0e3',
             contrastText: '#fff',
         },
     },
 });
 
-const styles = theme => ({
+const styles = {
     root: {
         backgroundColor: theme.palette.background.paper,
         width: 500,
         position: 'relative',
         minHeight: 200,
     },
-});
+    pause: {
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.dark,
+        height: '40vh',
+        margin: 15,
+        padding: 25
+    }
+};
 
 class App extends React.Component {
     constructor(props) {
@@ -133,7 +142,7 @@ class App extends React.Component {
     }
 
     render() {
-        // const {classes} = this.props;
+        const {classes} = this.props;
         const {running, puntos, equipo, config, finalizado, pause} = this.state;
 
         return (
@@ -149,11 +158,13 @@ class App extends React.Component {
                     {finalizado ?
                         <Puntos puntos={puntos} turnos={this.state.turno}/>
                         :
-                        <div>
-                            <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} pause={pause}
-                                    tiempo={() => this.timeSUp()}/>
-                                    <Botones app={this}/>
-                        </div>
+                        (pause ? <Paper className={classes.pause} elevation={3} ><Typography variant="h3" component="h2" >Pausa</Typography></Paper> :
+                                    <div>
+                                <Tiempo minutes={config.tiempo.minutes} seconds={config.tiempo.seconds} running={running} pause={pause}
+                                        tiempo={() => this.timeSUp()}/>
+                                <Botones app={this}/>
+                            </div>)
+
                     }
                 </div>
             </ThemeProvider>
