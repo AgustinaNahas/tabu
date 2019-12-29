@@ -12,8 +12,12 @@ import { win, lose, pass, start } from './Model/Gameplay'
 import Puntos from './Puntos'
 
 import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 import RedoIcon from '@material-ui/icons/Redo';
 import Typography from "@material-ui/core/Typography";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -49,12 +53,35 @@ export default function Botones(props) {
     const classes = useStyles();
     const { app} = props;
 
+    const [openWin, setOpenWin] = React.useState(true);
+    const [openFail, setOpenFail] = React.useState(true);
+    const [openPass, setOpenPass] = React.useState(true);
+
+
     if (app.state.running){
         return (<div>
             <Carta carta={app.state.palabras[app.state.carta]}/>
-            <Fab className={`${classes.fabLeft} ${classes.fab}`} color="primary" onClick={() => {win(app)}}>
-                <CheckIcon/>
-            </Fab>
+            <ClickAwayListener onClickAway={() => setOpenWin(false)}>
+                <Tooltip
+                    PopperProps={{
+                        disablePortal: true,
+                    }}
+                    onClose={() => setOpenWin(false)}
+                    open={openWin}
+                    disableFocusListener
+                    disableHoverListener
+                    disableTouchListener
+                    title="Acierto"
+                >
+                    <Fab size='large' className={`${classes.fabLeft} ${classes.fab}`} color="primary" onClick={() => {win(app)}}>
+                        <DoneIcon/>
+                    </Fab>
+                </Tooltip>
+            </ClickAwayListener>
+
+            {/*<Fab className={`${classes.fabLeft} ${classes.fab}`} color="primary" onClick={() => {win(app)}}>*/}
+            {/*    <CheckIcon/>*/}
+            {/*</Fab>*/}
             <ThemeProvider
                 theme={theme => createMuiTheme({
                     ...theme,
@@ -65,16 +92,46 @@ export default function Botones(props) {
                 })
                 }
             >
-                <Fab className={`${classes.fabTabu} ${classes.fab}`} color="primary"
-                     onClick={() => {lose(app)}}>
-                    <CloseIcon/>
-                </Fab>
+                <ClickAwayListener onClickAway={() => setOpenFail(false)}>
+                    <Tooltip
+                        PopperProps={{
+                            disablePortal: true,
+                        }}
+                        onClose={() => setOpenFail(false)}
+                        open={openFail}
+                        disableFocusListener
+                        disableHoverListener
+                        disableTouchListener
+                        title="Tabu"
+                    >
+                        <Fab size='large' className={`${classes.fabTabu} ${classes.fab}`} color="primary"
+                             onClick={() => {lose(app)}}>
+                            <CloseIcon/>
+                        </Fab>
+                    </Tooltip>
+                </ClickAwayListener>
+
 
             </ThemeProvider>
-            <Fab className={`${classes.fabRight} ${classes.fab}`} color="secondary"
-                 onClick={() => {pass(app)}}>
-                <RedoIcon/>
-            </Fab>
+            <ClickAwayListener onClickAway={() => setOpenPass(false)}>
+                <Tooltip
+                    PopperProps={{
+                        disablePortal: true,
+                    }}
+                    onClose={() => setOpenPass(false)}
+                    open={openPass}
+                    disableFocusListener
+                    disableHoverListener
+                    disableTouchListener
+                    title="Pasar"
+                >
+                    <Fab size='large' className={`${classes.fabRight} ${classes.fab}`} color="secondary"
+                         onClick={() => {pass(app)}}>
+                        <RedoIcon/>
+                    </Fab>
+                </Tooltip>
+            </ClickAwayListener>
+
         </div>)
     }
     if (!app.state.finalizado){
