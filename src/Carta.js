@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import Api from './Model/Api';
+
 const useStyles = makeStyles({
     card: {
         minWidth: 275,
@@ -28,7 +30,7 @@ export default function SimpleCard(props) {
     const classes = useStyles();
     const carta = props.carta;
 
-    return (
+    if (carta) return (
         <Card className={classes.card}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -47,12 +49,13 @@ export default function SimpleCard(props) {
                 )}
             </CardContent>
             <CardActions>
-                <Button size="small">
+                <Button size="small" onClick={() => {Api.reportar(carta.id)}}>
                     <Typography variant="h6" component="p">
-                        Ayuda
+                        Reportar
                     </Typography>
                 </Button>
             </CardActions>
         </Card>
     );
+    return '';
 }

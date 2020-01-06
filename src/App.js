@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Carta from './Carta';
+
 import Header from './Header';
 import Tiempo from './Tiempo';
 import Puntos from './Puntos';

@@ -1,6 +1,6 @@
 import Carta from "./Carta";
 import Fab from "@material-ui/core/Fab";
-import CheckIcon from "@material-ui/core/SvgIcon/SvgIcon";
+
 import {ThemeProvider} from "@material-ui/styles";
 import {createMuiTheme} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -17,7 +17,6 @@ import RedoIcon from '@material-ui/icons/Redo';
 import Typography from "@material-ui/core/Typography";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -79,9 +78,6 @@ export default function Botones(props) {
                 </Tooltip>
             </ClickAwayListener>
 
-            {/*<Fab className={`${classes.fabLeft} ${classes.fab}`} color="primary" onClick={() => {win(app)}}>*/}
-            {/*    <CheckIcon/>*/}
-            {/*</Fab>*/}
             <ThemeProvider
                 theme={theme => createMuiTheme({
                     ...theme,
