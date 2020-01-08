@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import Divider from '@material-ui/core/Divider';
 
 import Slider from "./Slider";
 import SliderPuntos from "./SliderPuntos";
@@ -17,12 +18,12 @@ import Switch from "./Switch";
 const styles = theme => ({
     root: {
         margin: 0,
-        padding: theme.spacing(4),
+        padding: 20,
     },
     closeButton: {
         position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
+        right: 20,
+        top: 20,
         color: theme.palette.grey[500],
     },
     textField: {
@@ -56,7 +57,23 @@ const DialogActions = withStyles(theme => ({
         margin: 0,
         padding: theme.spacing(4),
     },
+    elemento: {
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
+    },
 }))(MuiDialogActions);
+
+const stylesOpciones = theme => ({
+    root: {
+        margin: 0,
+        padding: theme.spacing(4),
+    },
+    divisor: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
+});
+
 
 class Opciones extends React.Component {
 
@@ -69,7 +86,7 @@ class Opciones extends React.Component {
     }
 
     render(){
-        const {guardarConfig, open} = this.props;
+        const {guardarConfig, open, classes} = this.props;
 
         return (
             <Dialog onClose={() => this.handleClose()} aria-labelledby="customized-dialog-title" open={open}>
@@ -79,9 +96,11 @@ class Opciones extends React.Component {
                     </Typography>
                 </DialogTitle>
                 <DialogContent dividers>
-                    <Slider guardarConfig={(tiempo) => {guardarConfig('tiempo', tiempo)}}/>
-                    <Switch change={(valor) => {guardarConfig('modoPuntos', !valor);}}/>
-                    <SliderPuntos guardarConfig={guardarConfig}/>
+                    <Slider className={classes.elemento} guardarConfig={(tiempo) => {guardarConfig('tiempo', tiempo)}}/>
+                    <Divider variant="middle" className={classes.divisor}/>
+                    <Switch className={classes.elemento} change={(valor) => {guardarConfig('modoPuntos', !valor);}}/>
+                    <Divider variant="middle" className={classes.divisor}/>
+                    <SliderPuntos className={classes.elemento} guardarConfig={guardarConfig}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => this.handleClose()} color="secondary">
@@ -102,5 +121,5 @@ Opciones.propTypes = {
     dismiss: PropTypes.func
 };
 
-export default withStyles(styles)(Opciones);
+export default withStyles(stylesOpciones)(Opciones);
   
