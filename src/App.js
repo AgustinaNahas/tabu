@@ -16,6 +16,8 @@ import Botones from "./Botones";
 import {Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
+import {getPoints, end} from './Model/Gameplay'
+
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -74,7 +76,7 @@ class App extends React.Component {
     }
 
     agregarEquipos(equipos) {
-        var arrayPuntos = this.state.puntos;
+         var arrayPuntos = this.state.puntos;
 
         equipos.forEach((equipo, index) => {
             arrayPuntos[index] = {
@@ -87,18 +89,13 @@ class App extends React.Component {
         this.setState({puntos: arrayPuntos});
     };
 
-    cambiarPuntos(equipoActual, puntosNuevos) {
-        var puntosActuales = this.state.puntos;
-        if (puntosActuales[equipoActual].puntos[this.state.turno] === undefined) puntosActuales[equipoActual].puntos[this.state.turno] = 0;
-        puntosActuales[equipoActual].puntos[this.state.turno] += puntosNuevos;
-        puntosActuales[equipoActual].totales += puntosNuevos;
-        this.setState({puntos: puntosActuales});
-    };
-
     timeSUp() {
+        var finalizado;
+
         this.setState({running: false});
         if (this.state.config.modoPuntos) {
-            this.setState({finalizado: this.state.config.puntosFinales <= this.state.puntos[this.state.equipo].totales});
+            finalizado = this.state.config.puntosFinales <= this.state.puntos[this.state.equipo].totales;
+            this.setState({finalizado: finalizado});
         };
 
         var equipoSiguiente = this.state.equipo + 1;
@@ -110,8 +107,11 @@ class App extends React.Component {
 
         this.setState({equipo: equipoSiguiente, turno: turno});
         if (!this.state.config.modoPuntos) {
-            this.setState({finalizado: this.state.config.puntosFinales <= this.state.turno});
+            finalizado = this.state.config.puntosFinales <= this.state.turno;
+            this.setState({finalizado: finalizado});
         }
+
+        if (finalizado) end();
 
         var cantidad = this.state.config.tiempo.minutes * 120 + this.state.config.tiempo.seconds * 2;
         var self = this;
@@ -130,6 +130,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+
+        getPoints(this);
 
         var cantidad = this.state.config.tiempo.minutes * 120 + this.state.config.tiempo.seconds * 2;
         var self = this;
