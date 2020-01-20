@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         margin: theme.spacing(1),
-        position: 'absolute',
+        position: 'sticky',
         width: '96%',
         bottom: theme.spacing(2),
         left: 0,
