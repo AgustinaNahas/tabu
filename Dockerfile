@@ -4,6 +4,7 @@ FROM node:14.1-alpine
 
 ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
+RUN npm install async
 RUN mkdir -p /usr/src/app && cp -a /tmp/node_modules /usr/src/app/
 WORKDIR /usr/src/app
 ADD . /usr/src/app
