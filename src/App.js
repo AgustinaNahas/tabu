@@ -21,15 +21,15 @@ import {getPoints, end} from './Model/Gameplay'
 const theme = createMuiTheme({
     palette: {
         primary: {
-            dark: '#af5666',
+            // dark: '#af5666',
             main: '#FA7C92',
-            light: '#fb96a7',
+            // light: '#fb96a7',
             contrastText: '#fff',
         },
         secondary: {
-            dark: '#4d899a',
+            // dark: '#4d899a',
             main: '#6EC5DC',
-            light: '#8bd0e3',
+            // light: '#8bd0e3',
             contrastText: '#fff',
         },
     },
