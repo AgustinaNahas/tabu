@@ -1,6 +1,6 @@
 # El Dockerfile es la receta. Qué cosas construyen mi imagen base del sistema? Qué cosas tiene que tener instaladas? etc
 
-FROM node:10-alpine
+FROM node:14.1-alpine
 
 ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
